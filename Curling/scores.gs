@@ -1,6 +1,7 @@
+var SHEET_ID='1VOfKH-t4LQQf-RX5WRLM4B2pHB2NDfyYB4YRP6TgfVo';
 var SHEET_NAME = 'D1Results';
 
-function Result() {
+function Result_() {
   this.row = 0;
   this.division;
   this.date = null;
@@ -13,19 +14,19 @@ function Result() {
   this.team2Points;
 }
 
-function ResultDate(date) {
+function ResultDate_(date) {
   this.date = date;
   this.results = new Array(9);
 }
 
-function getResults_() {
+function getResults() {
   var data = SpreadsheetApp.openById(SHEET_ID).getRangeByName('D1Results').getValues();
   var results = new Array(10);
   var resultIndex = 0;
   var resDateIndex = 0;
   
   for (var row = 0; row < data.length; row++) {
-    var result = new Result();
+    var result = new Result_();
     result.row = row;
     result.division = data[row][0];
     result.date = Utilities.formatDate(data[row][2], Session.getScriptTimeZone(), "MMM d, yyyy");
@@ -43,7 +44,7 @@ function getResults_() {
       resultIndex = resultIndex + 1;
     }
     if (resDate == null) {
-      resDate = new ResultDate(result.date);
+      resDate = new ResultDate_(result.date);
       results[resultIndex] = resDate;
       resDateIndex = 0;
     } 
@@ -53,5 +54,4 @@ function getResults_() {
   return results;
 }
 
-// <td align='center'><input id='game1Team1Score' type='number' class='score' min=0 onkeyup="JavaScript: checkInputs()" onmouseup="JavaScript: checkInputs()" value='3'/></td>
 
